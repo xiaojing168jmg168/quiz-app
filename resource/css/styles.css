@@ -61,9 +61,24 @@ background-color: blueviolet;
 }
 
 #questionTitle{
-text-align: center;
+text-align: left;
 margin-bottom: 40px;
-font-size: 30px;
+font-size: 25px;
+}
+
+
+/* add list order number */
+ol {
+  list-style: none;
+  counter-reset: my-awesome-counter;
+}
+ol li {
+  counter-increment: my-awesome-counter;
+}
+ol li::before {
+  content: counter(my-awesome-counter) ". ";
+  color:aliceblue;
+  font-weight: bold;
 }
 
 #li{
@@ -85,9 +100,15 @@ font-size: 30px;
 #li:hover{
 background-color: blueviolet;
 }
+#line{
+margin-top: 15px;
+ border-top: 1px solid gray;
+}
 
-
-
+#correctOrWrong{
+color: gray;
+font-size: 22px;
+}
 
 
 
