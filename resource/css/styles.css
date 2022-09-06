@@ -21,7 +21,8 @@ position: relative;
 .view_scores{
 color: purple;
 }
-.current_time{
+
+#current_time{
 float: right;
 }
 

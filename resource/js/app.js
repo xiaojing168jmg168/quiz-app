@@ -33,8 +33,7 @@ var questionContent = document.getElementById("question_content");
 
 var ol = document.getElementById("ol");
 var start = document.getElementById("start_btn");
-var leftTime = document.getElementsByClassName(
-"left_time");
+var currentTime = document.getElementById("current_time");
 
 // Seconds left is 15 seconds per question:
 var leftTime = 76;
@@ -44,7 +43,7 @@ var penalty = 10;
 start.addEventListener("click", function(){
     timer = setInterval(function() {
       leftTime--;
-      leftTime.textContent = leftTime;
+      currentTime.textContent = "time: " + leftTime;
    
     // Tests if time has run out
     if (leftTime === 0) {
@@ -84,13 +83,12 @@ ol.innerText="";
 
   questionContent.appendChild(ol);
   ol.appendChild(li);
-
+//click li Triggers checkAnswer funtion
 li.addEventListener("click",checkAnswer);
 })
-//click li Triggers checkAnswer funtion
-
 
 }
+
 //compare choice  and answer
 function checkAnswer(e){
 
@@ -99,7 +97,9 @@ if(questionIndex < questions.length){
 correction(e.target.innerText === questions[questionIndex].answer);
 
 }else{
+
 allDone();
+
 }
 }
 
@@ -120,6 +120,7 @@ correctOrWrong.textContent = "Correct!";
 }else{
 correctOrWrong.textContent = "Wrong!";
 leftTime = leftTime - penalty ;
+
 }
 questionContent.appendChild(creatLine);
 questionContent.appendChild(correctOrWrong);
