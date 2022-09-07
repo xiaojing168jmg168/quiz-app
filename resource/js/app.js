@@ -30,7 +30,7 @@ var questions = [
 var questionIndex = 0;
 var score = 0;
 var questionContent = document.getElementById("question_content");
-var allScores = [];
+
 var ol = document.getElementById("ol");
 var start = document.getElementById("start_btn");
 var currentTime = document.getElementById("current_time");
@@ -189,14 +189,24 @@ createSubmit.addEventListener("click",function(event){
      var initials = createInput.value;
      if(!initials){
      document.querySelector("#submit").textContent = "Enter a valid value!";
-}else{
+     }else{
      var finalScore = {
           initials:initials,
           score:leftTime
          }
+
+     //get local stroage data
+     var allScores = localStorage.getItem("allScores");
+        if (allScores === null) {
+                    allScores = [];
+                } else {
+                    allScores = JSON.parse(allScores);
+                }   
+     //push new data to local storage
      allScores.push(finalScore);
      var newScore = JSON.stringify(allScores);
      localStorage.setItem("allScores", newScore);
+     //show last page
      window.location.href = "highScores.html";
 }
 
