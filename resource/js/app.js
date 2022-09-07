@@ -30,28 +30,31 @@ var questions = [
 var questionIndex = 0;
 var score = 0;
 var questionContent = document.getElementById("question_content");
-
+var allScores = [];
 var ol = document.getElementById("ol");
 var start = document.getElementById("start_btn");
 var currentTime = document.getElementById("current_time");
-
+var nextQuestions;
 // Seconds left is 15 seconds per question:
-var leftTime = 76;
+var leftTime = 75;
 // Holds penalty time
 var penalty = 10;
+var timer = 0;
 //click start button, Triggers time decreate, render question
 start.addEventListener("click", function(){
-    timer = setInterval(function() {
+if(timer === 0){
+   timer = setInterval(function() {
       leftTime--;
       currentTime.textContent = "time: " + leftTime;
    
     // Tests if time has run out
-    if (leftTime === 0) {
+    if (leftTime <= 0) {
       // Clears interval
       clearInterval(timer);
-      allDone()
+     allDone();
     }
   }, 1000);
+}
  loadQuestion(questionIndex);
 })
 
@@ -61,10 +64,12 @@ function loadQuestion(questionIndex){
 //clear exsiting data
 questionContent.innerHTML=""
 ol.innerHtml = "";
-//for loop throng the array
+
+//for loop throng questions array
 for(var i=0; i<questions.length; i++){
-//append title
+//appends title
 var userQuestion = questions[questionIndex].title;
+
 var userOptions = questions[questionIndex].choices;
 }
 //create question title
@@ -90,52 +95,113 @@ li.addEventListener("click",checkAnswer);
 }
 
 //compare choice  and answer
-function checkAnswer(e){
+function checkAnswer(event) {
+    var element = event.target;
 
-if(questionIndex < questions.length){
+    if (element.matches("li")) {
 
-correction(e.target.innerText === questions[questionIndex].answer);
+        var correctOrWrong = document.createElement("div");
+        var creatLine = document.createElement("div");
+        creatLine.textContent = "";
+        correctOrWrong.setAttribute("id","correctOrWrong");
+        creatLine.setAttribute("id","line");
+      //correct conditions
+        if (element.textContent == questions[questionIndex].answer) {
+            score++;
+           correctOrWrong.textContent = "Correct!";
+          
+        } else {
+      // Will deduct 10 seconds off for wrong answers
+          correctOrWrong.textContent = "Wrong!";
+          leftTime = leftTime - penalty ;
+        }
 
-}else{
+    }
+    
+    questionIndex++;
 
-allDone();
+    if (questionIndex >= questions.length) {
+       
+        allDone();
+       
+    } else {
+        loadQuestion(questionIndex);
+    }
+    questionContent.appendChild(creatLine);
+    questionContent.appendChild(correctOrWrong);
 
 }
-}
 
-//add correction function
-function correction(condition){
-//first rend question,then show correction
-questionIndex++;
-
-loadQuestion(questionIndex);
-
-var correctOrWrong = document.createElement("div");
-var creatLine = document.createElement("div");
-creatLine.textContent = "";
-correctOrWrong.setAttribute("id","correctOrWrong");
-creatLine.setAttribute("id","line");
-if(condition){
-correctOrWrong.textContent = "Correct!";
-}else{
-correctOrWrong.textContent = "Wrong!";
-leftTime = leftTime - penalty ;
-
-}
-questionContent.appendChild(creatLine);
-questionContent.appendChild(correctOrWrong);
-}
 
 
 //add gameover funtion
-var allDone = function(){
+function allDone(){
+questionContent.innerHTML = "";
 
+currentTime.innerHTML = "";
 
+//all done title
+var allDoneTitle = document.createElement("div");
+allDoneTitle.setAttribute("id","allDoneTitle");
+allDoneTitle.textContent = "All Done!";
+questionContent.appendChild(allDoneTitle);
+
+//create p element show score
+//finish all question, need stop timer
+if(leftTime >= 0){
+var showScore = document.createElement("div");
+showScore.setAttribute("id","showScore");
+clearInterval(timer);
+showScore.textContent = "Your final score is: " + leftTime;
+questionContent.appendChild(showScore);
 }
 
 
+//create div include label and input
+var labelAndInput = document.createElement("div");
+labelAndInput.setAttribute("id","labelAndInput");
+labelAndInput.textContent = "";
+questionContent.appendChild(labelAndInput);
+
+//create label enter initials
+var createLabel = document.createElement("label");
+createLabel.setAttribute("id","label");
+createLabel.textContent = "Enter initials";
+labelAndInput.appendChild(createLabel);
 
 
+//create input
+var createInput = document.createElement("input");
+createInput.setAttribute("type","text");
+createInput.setAttribute("id","initials");
+createInput.textContent = "";
+labelAndInput.appendChild(createInput);
 
+//create submit
+var createSubmit = document.createElement("button");
+createSubmit.setAttribute("type","submit");
+createSubmit.setAttribute("id","submit");
+createSubmit.textContent = "Submit";
+labelAndInput.appendChild(createSubmit);
+ 
+createSubmit.addEventListener("click",function(event){
+     event.preventDefault();
+     var initials = createInput.value;
+     if(!initials){
+     document.querySelector("#submit").textContent = "Enter a valid value!";
+}else{
+     var finalScore = {
+          initials:initials,
+          score:leftTime
+         }
+     allScores.push(finalScore);
+     var newScore = JSON.stringify(allScores);
+     localStorage.setItem("allScores", newScore);
+     window.location.href = "highScores.html";
+}
+
+})
+
+}
 
 

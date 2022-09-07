@@ -67,7 +67,6 @@ margin-bottom: 40px;
 font-size: 25px;
 }
 
-
 /* add list order number */
 ol {
   list-style: none;
@@ -83,7 +82,6 @@ ol li::before {
 }
 
 #li{
-  
   background-color: #2f1f59;
   color:aliceblue;
   border-radius: 8px;
@@ -101,19 +99,71 @@ ol li::before {
 #li:hover{
 background-color: blueviolet;
 }
+
 #line{
-margin-top: 15px;
- border-top: 1px solid gray;
+ margin-top: 15px;
+ border-bottom: 1px solid gray;
 }
 
 #correctOrWrong{
 color: gray;
 font-size: 22px;
+float: left;
+}
+
+/* all done page */
+#allDoneTitle{
+text-align: left;
+margin-bottom: 15px;
+font-size: 22px;
+}
+
+#showScore{
+text-align: left;
+margin-bottom: 15px;
+font-size: 22px;
 }
 
 
+#labelAndInput{
+float: left;
+display: inline;
+margin-bottom: 25px;
+}
 
 
+#label{
+font-size: 20px;
+float:left;
+margin-right:10px;
+}
+
+#input{
+width: 50%;
+margin-right:5px;
+margin-top: 10px;
+}
+#submit{
+background-color: #2f1f59;
+color: aliceblue;
+margin-left: 5px;
+}
+#submit:hover{
+background-color: blueviolet;
+}
+
+/* view scores page */
+#viewScoreTitle{
+text-align: left;
+margin-bottom: 40px;
+font-size: 25px;
+display: inline;
+}
+
+.scoreListClass{
+margin-bottom: 15px;
+font-size: 20px;
+}
   /* A Media Query max-width: 640px */
  @media screen and (max-width: 640px) {
 .start_btn{
@@ -121,4 +171,13 @@ font-size: 1.5em;
 padding: 10px 30px;
 }
 
+#input{
+margin-top: 15px;
+float: left;
+}
+
+#submit{
+margin-top: 8px;
+float: left;
+}
 }
