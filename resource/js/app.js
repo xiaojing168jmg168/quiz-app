@@ -101,10 +101,9 @@ function checkAnswer(event) {
     if (element.matches("li")) {
 
         var correctOrWrong = document.createElement("div");
-        var creatLine = document.createElement("div");
-        creatLine.textContent = "";
+      
         correctOrWrong.setAttribute("id","correctOrWrong");
-        creatLine.setAttribute("id","line");
+      
       //correct conditions
         if (element.textContent == questions[questionIndex].answer) {
             score++;
@@ -127,7 +126,7 @@ function checkAnswer(event) {
     } else {
         loadQuestion(questionIndex);
     }
-    questionContent.appendChild(creatLine);
+
     questionContent.appendChild(correctOrWrong);
 
 }
