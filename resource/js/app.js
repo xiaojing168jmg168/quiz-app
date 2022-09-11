@@ -58,7 +58,6 @@ if(timer === 0){
  loadQuestion(questionIndex);
 })
 
-
 //load question function
 function loadQuestion(questionIndex){
 //clear exsiting data
@@ -91,7 +90,6 @@ ol.innerText="";
 //click li Triggers checkAnswer funtion
 li.addEventListener("click",checkAnswer);
 })
-
 }
 
 //compare choice  and answer
@@ -114,7 +112,6 @@ function checkAnswer(event) {
           correctOrWrong.textContent = "Wrong!";
           leftTime = leftTime - penalty ;
         }
-
     }
     
     questionIndex++;
@@ -128,10 +125,7 @@ function checkAnswer(event) {
     }
 
     questionContent.appendChild(correctOrWrong);
-
 }
-
-
 
 //add gameover funtion
 function allDone(){
